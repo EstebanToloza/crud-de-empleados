@@ -1,4 +1,25 @@
+<?php
+include("../../bd.php");
+
+if ($_POST) {
+    print_r($_POST);
+
+    // recolectamos los datos del método POST
+    $nombredelpuesto = (isset($_POST["nombredelpuesto"]) ? $_POST["nombredelpuesto"] : "");
+
+    // preparar la inserción de los datos
+    $sentencia = $conexion->prepare("INSERT INTO tbl_puestos(id, nombredelpuesto)
+                    VALUES (null, :nombredelpuesto)");
+
+    // asignando los valores que vienen del método POSt (form)
+    $sentencia->bindParam(":nombredelpuesto", $nombredelpuesto);
+    $sentencia->execute();
+    header("Location:index.php");
+}
+?>
+
 <?php include("../../templates/header.php"); ?>
+
 
 <br>
 
