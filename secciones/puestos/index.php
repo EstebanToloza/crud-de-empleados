@@ -1,7 +1,16 @@
+<?php
+include("../../bd.php");
+
+$sentencia = $conexion->prepare("SELECT * FROM `tbl_puestos`");
+$sentencia->execute();
+$lista_tbl_puestos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <?php include("../../templates/header.php"); ?>
 
 <br>
-<h3>Empleados</h3>
+<h3>Puestos</h3>
 
 <div class="card">
     <div class="card-header">
@@ -20,14 +29,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="">
-                        <td scope="row">57924</td>
-                        <td>Programador junior</td>
-                        <td>
-                            <a name="btneditar" id="btneditar" class="btn btn-info" href="#" role="button">Editar</a>
-                            <a name="btneliminar" id="btneliminar" class="btn btn-danger" href="#" role="button">Eliminar</a>
-                        </td>
-                    </tr>
+                    <?php foreach ($lista_tbl_puestos as $registro) { ?>
+                        <tr class="">
+                            <td scope="row"><?php echo $registro['id'] ?></td>
+                            <td><?php echo $registro['nombredelpuesto'] ?></td>
+                            <td>
+                                <a name="btneditar" id="btneditar" class="btn btn-info" href="#" role="button">Editar</a>
+                                <a name="btneliminar" id="btneliminar" class="btn btn-danger" href="#" role="button">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
